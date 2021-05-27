@@ -90,3 +90,6 @@ FizzBuzz
   ... 
   :exit &del # pop the top stack value to expose the pushed value
   ```
+
+
+If you ask yourself "why" the answer is that this was made in an afternoon and I had nothing better to do

@@ -30,9 +30,9 @@ stderr.
 * `in` -> push input char as ascii to the stack
 * `# comment #` text between # is ignored
 * `# comment\n` text after # is ignored
-* `&word` -> pop and store it in a variable
-* `@word` -> load variable and push it, does not consume the variable
-* `:indent` -> define a label
+* `&ident` -> pop and store it in a variable
+* `@ident` -> load variable and push it, does not consume the variable
+* `:ident` -> define a label
 * `goto ident` -> goto a label if the value on the stack is !=0, peek
 
 Identifier: \w

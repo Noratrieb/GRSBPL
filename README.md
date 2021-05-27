@@ -26,7 +26,7 @@ stderr.
 * `not` -> invert stack value (!=0 -> 0, 0 -> 1)
 * `swap` -> swaps the 2 top stack values
 * `out` -> pop and output it to the console as ascii
-* `nount` -> pop and output as a number to the console
+* `nout` -> pop and output as a number to the console
 * `in` -> push input char as ascii to the stack
 * `# comment #` text between # is ignored
 * `# comment\n` text after # is ignored

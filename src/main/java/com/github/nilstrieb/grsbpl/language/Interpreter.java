@@ -95,6 +95,7 @@ public class Interpreter {
             case OUT -> out();
             case NOUT -> nout();
             case IN -> in();
+            case STRING -> string();
             // control flow
             case COLUMN -> ignoreLabel();
             case GOTO -> condGoto();
@@ -214,6 +215,9 @@ public class Interpreter {
 
     private void out() {
         consume();
+        if (stack().isEmpty()) {
+            throw runException("Cannot pop empty stack");
+        }
         System.out.print((char) stack().pop());
     }
 
@@ -229,6 +233,12 @@ public class Interpreter {
         } catch (IOException e) {
             throw runException("[VM] - Error reading input");
         }
+    }
+    
+    private void string() {
+        String s = advance().getStringValue();
+        expect(OUT, "String can only be used together with out");
+        System.out.print(s);
     }
 
     ///// control flow
@@ -293,10 +303,14 @@ public class Interpreter {
     ///// parsing helper methods
 
     private Token expect(TokenType type) {
+        return expect(type, "Excepted token '" + type + "' but found '" + peek().getType() + "'");
+    }
+
+    private Token expect(TokenType type, String message) {
         if (peek().getType() == type) {
             return advance();
         } else {
-            throw runException("Excepted token '" + type + "' but found '" + peek().getType() + "'");
+            throw runException(message);
         }
     }
 

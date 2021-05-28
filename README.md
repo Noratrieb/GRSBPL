@@ -1,9 +1,7 @@
 # GRSBPL - Generic Random Stack Based Programming Language
 
-## line numbers are broken I know
 
-uses some form of reverse polish notation
-
+A language that works on the stack (and has lots of other cool non-stack-based features)
 ```
 1 5 * 5 +
 > 10
@@ -64,7 +62,8 @@ stderr.
 * `# comment\n` text after # is ignored
 
 `<ident>`: \w+, not a keyword  
-`<number>`: \d+  
+`<number>`: decimal | hexadecimal with 0x prefix integer | binary with 0b prefix | octal with o prefix, underscores are
+allowed anywhere in number 
 `<digit>`: \d  
 `<character>`: single character
 

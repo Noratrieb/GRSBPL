@@ -128,13 +128,34 @@ public class Lexer {
         }
     }
 
+
     private void number() {
+        int radix = 10;
+        if (last() == '0') {
+            if (peek() == 'x') {
+                consume();
+                consume();
+                radix = 16;
+            } else if (peek() == 'b') {
+                consume();
+                consume();
+                radix = 2;
+            } else if (peek() == 'o') {
+                consume();
+                consume();
+                radix = 8;
+            }
+        }
         StringBuilder number = new StringBuilder(String.valueOf(last()));
-        while (Character.isDigit(peek())) {
-            number.append(advance());
+
+        while (isAlphaNumeric(peek())) {
+            char c = advance();
+            if (c != '_') {
+                number.append(c);
+            }
         }
         try {
-            int value = Integer.parseInt(number.toString());
+            int value = Integer.parseInt(number.toString(), radix);
             add(CHARACTER, value);
         } catch (NumberFormatException e) {
             throw lexException("Value not an integer: " + number);

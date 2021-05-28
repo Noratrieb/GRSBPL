@@ -20,6 +20,7 @@ stderr.
 
 * any number `<number>` -> push the numeric value of n
 * any character `'<character>'` -> push c as its escaped ascii value
+* a string `"string"` -> only valid in combination with an `out` afterwards
 * `&<ident>` -> pop and store it in a variable
 * `@<ident>` -> load variable and push it, does not consume the variable
 
@@ -47,6 +48,7 @@ stderr.
 * `out` -> pop and output it to the console as ascii
 * `nout` -> pop and output as a number to the console
 * `in` -> push input char as ascii to the stack
+* `"<text>" out` -> prints the string
 
 ### Control flow
 

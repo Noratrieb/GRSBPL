@@ -1,9 +1,0 @@
-10 factorial 1 goto exit
-
-function factorial 1
-dup not goto isZero
-pop dup 1 - factorial * return
-:isZero
-1 pop return
-
-:exit pop dup nout

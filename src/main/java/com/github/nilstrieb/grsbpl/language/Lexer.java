@@ -71,6 +71,7 @@ public class Lexer {
             case '&' -> add(AMPERSAND);
             case '@' -> add(AT);
             case ':' -> add(COLUMN);
+            case '"' -> string();
             case '\'' -> character();
             case ' ', '\t', '\r', '\n' -> {
             }
@@ -88,20 +89,39 @@ public class Lexer {
     private void character() {
         char value = advance();
         if (value == '\\') {
-            char escaped = advance();
-            value = switch (escaped) {
-                case 'n' -> '\n';
-                case 'r' -> '\r';
-                case '\\' -> '\\';
-                case '0' -> '\0';
-                case '\'' -> '\'';
-                case 'b' -> '\b';
-                case 'f' -> '\f';
-                default -> throw new LexException("Invalid escape sequence: \\" + escaped, lineNumber, offsetLock, lineOffset - offsetLock);
-            };
+            value = escape();
         }
         add(CHAR, value);
         consume();
+    }
+
+    private void string() {
+        StringBuilder stringBuilder = new StringBuilder();
+        while (true) {
+            char next = advance();
+            if (next == '\\') {
+                next = escape();
+            } else if (next == '"') {
+                break;
+            }
+            stringBuilder.append(next);
+        }
+        add(STRING, stringBuilder.toString());
+    }
+
+    private char escape() {
+        char escaped = advance();
+        return switch (escaped) {
+            case 'n' -> '\n';
+            case 'r' -> '\r';
+            case '\\' -> '\\';
+            case '0' -> '\0';
+            case '\'' -> '\'';
+            case 'b' -> '\b';
+            case 'f' -> '\f';
+            case '"' -> '"';
+            default -> throw new LexException("Invalid escape sequence: \\" + escaped, lineNumber, offsetLock, lineOffset - offsetLock);
+        };
     }
 
     private void comment() {

@@ -63,7 +63,7 @@ class InterpreterTest {
 
     @Test
     void gotoBack() {
-        String program = "100000000 &i \n" +
+        String program = "10000000 &i \n" +
                 ":start \n" +
                 "@i nout '\n' out \n" +
                 "@i 1 - &i \n" +

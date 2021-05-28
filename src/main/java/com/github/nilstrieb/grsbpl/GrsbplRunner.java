@@ -46,6 +46,7 @@ public class GrsbplRunner {
         if (length == -1) {
             length = program.get(line - 1).length() - offset + 1;
         }
+        System.err.println();
 
         System.err.println("[GRSBPL Runtime Execution Error]");
         System.err.println();

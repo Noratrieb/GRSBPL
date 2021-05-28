@@ -112,6 +112,24 @@ class LexerTest {
     }
 
 
+    @Test
+    void alternativeNumbers() {
+        String withHex = "0xFFF 0xa4 0x10 1_000";
+        List<Integer> expected = List.of(0xFFF, 0xA4, 0x10, 1000);
+        assertEquals(expected, getValues(lex(withHex)));
+    }
+
+    @Test
+    void string() {
+        String strings = "\"hallo\" \"test\" 't' \"hallo\\\"test\\n\"";
+        List<Token> tokens = lex(strings);
+        List<TokenType> expected = List.of(STRING, STRING, CHAR, STRING, EOF);
+        assertEquals(expected, getTypes(tokens));
+        assertEquals("hallo", tokens.get(0).getStringValue());
+        assertEquals("hallo\"test\n", tokens.get(3).getStringValue());
+    }
+
+
     List<Token> lex(String program) {
         return lexer.lex(program.toCharArray());
     }

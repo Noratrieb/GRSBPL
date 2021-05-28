@@ -1,0 +1,9 @@
+ factorial 1 goto exit
+
+function factorial 1
+dup not goto isZero
+&del dup 1 - factorial * return
+:isZero
+1 return
+
+:exit pop

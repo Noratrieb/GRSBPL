@@ -161,6 +161,14 @@ class InterpreterTest {
         assertEquals(0, run(program));
         assertEquals("hello world!\n", out.getOut());
     }
+    
+    @Test
+    void strings() {
+        String program = "\"hallo\" out 't' out";
+        System.setOut(out);
+        assertEquals(0, run(program));
+        assertEquals("hallot", out.getOut());
+    }
 
     static class OutStream extends PrintStream {
         private final StringBuilder builder = new StringBuilder();
@@ -177,6 +185,13 @@ class InterpreterTest {
         public void print(char c) {
             builder.append(c);
         }
+        
+        
+        @Override
+        public void print(String s) {
+            builder.append(s);
+        }
+
 
         @Override
         public void print(int i) {

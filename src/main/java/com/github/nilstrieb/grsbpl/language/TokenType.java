@@ -16,7 +16,7 @@ public enum TokenType {
     NOT, DUP, SWAP, POP,
 
     // io
-    OUT, NOUT, IN,
+    OUT, NOUT, IN, STRING,
 
     // control flow
     COLUMN(":"), GOTO, FUNCTION, IDENTIFIER, RETURN,

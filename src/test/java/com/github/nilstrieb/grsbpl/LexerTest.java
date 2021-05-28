@@ -103,6 +103,14 @@ class LexerTest {
         List<String> expected = List.of("test", "ABC", "g9tgq", "fe_53f");
         assertEquals(expected, getValues(lex(program)));
     }
+    
+    @Test
+    void alternativeNumbers() {
+        String withHex = "0xFFF 0xa4 0x10 1_000";
+        List<Integer> expected = List.of(0xFFF, 0xA4, 0x10, 1000);
+        assertEquals(expected, getValues(lex(withHex)));
+    }
+
 
     List<Token> lex(String program) {
         return lexer.lex(program.toCharArray());

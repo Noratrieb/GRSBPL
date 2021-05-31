@@ -92,7 +92,7 @@ public class Lexer {
             value = escape();
         }
         add(CHAR, value);
-        consume();
+        expect('\'');
     }
 
     private void string() {
@@ -191,6 +191,13 @@ public class Lexer {
     }
 
     private void consume() {
+        advance();
+    }
+
+    private void expect(char c) {
+        if (peek() != c) {
+            lexException("Excepted character '" + c + "' but found '" + peek() + "'");
+        }
         advance();
     }
 
